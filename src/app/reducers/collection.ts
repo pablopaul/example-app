@@ -5,16 +5,31 @@ export interface State {
   loaded: boolean;
   loading: boolean;
   ids: string[];
+  dbData: Object[];
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
-  ids: []
+  ids: [],
+  dbData: null
 };
 
 export function reducer(state = initialState, action: collection.Actions): State {
   switch (action.type) {
+
+    case collection.ActionTypes.GET_DB_DATA_SUCCESS: {
+      const data = action.payload;
+
+      return {
+        loaded: false,
+        loading: false,
+        ids: [],
+        dbData: data
+      };
+    }
+
+
     case collection.ActionTypes.LOAD: {
       return Object.assign({}, state, {
         loading: true
@@ -27,7 +42,8 @@ export function reducer(state = initialState, action: collection.Actions): State
       return {
         loaded: true,
         loading: false,
-        ids: books.map(book => book.id)
+        ids: books.map(book => book.id),
+        dbData: null
       };
     }
 
@@ -59,6 +75,7 @@ export function reducer(state = initialState, action: collection.Actions): State
   }
 }
 
+export const getDbData = (state: State) => state.dbData;
 
 export const getLoaded = (state: State) => state.loaded;
 

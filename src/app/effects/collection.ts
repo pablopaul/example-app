@@ -15,9 +15,24 @@ import { of } from 'rxjs/observable/of';
 import * as collection from '../actions/collection';
 import { Book } from '../models/book';
 
+import { WindowRef } from '../services/WindowRef';
+
 
 @Injectable()
 export class CollectionEffects {
+
+  // Perf
+  @Effect()
+  getDbData$: Observable<Action> = this.actions$
+    .ofType(collection.ActionTypes.GET_DB_DATA)
+    .startWith(new collection.GetDbData())
+    .switchMap(() =>
+      Observable.of(this.winRef.nativeWindow.ENV.generateData().toArray())
+        .map((data) => {
+          return new collection.GetDbDataSuccessAction(data)
+        })
+        .catch(error => of(new collection.GetDbDataFailAction(error)))
+    );
 
   /**
    * This effect does not yield any actions back to the store. Set
@@ -70,5 +85,8 @@ export class CollectionEffects {
         .catch(() => of(new collection.RemoveBookFailAction(book)))
     );
 
-    constructor(private actions$: Actions, private db: Database) { }
+    constructor(private actions$: Actions,
+                private db: Database,
+                private winRef: WindowRef) {
+    }
 }

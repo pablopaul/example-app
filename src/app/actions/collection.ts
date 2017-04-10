@@ -4,6 +4,9 @@ import { type } from '../util';
 
 
 export const ActionTypes = {
+  GET_DB_DATA:          type('[Collection] Get Db Data'),
+  GET_DB_DATA_SUCCESS:  type('[Collection] Get Db Data Success'),
+  GET_DB_DATA_FAIL:     type('[Collection] Get Db Data Fail'),
   ADD_BOOK:             type('[Collection] Add Book'),
   ADD_BOOK_SUCCESS:     type('[Collection] Add Book Success'),
   ADD_BOOK_FAIL:        type('[Collection] Add Book Fail'),
@@ -14,6 +17,24 @@ export const ActionTypes = {
   LOAD_SUCCESS:         type('[Collection] Load Success'),
   LOAD_FAIL:            type('[Collection] Load Fail'),
 };
+
+export class GetDbData implements Action {
+  type = ActionTypes.GET_DB_DATA;
+
+  constructor() { }
+}
+
+export class GetDbDataSuccessAction implements Action {
+  type = ActionTypes.GET_DB_DATA_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class GetDbDataFailAction implements Action {
+  type = ActionTypes.GET_DB_DATA_FAIL;
+
+  constructor(any) { }
+}
 
 
 /**
@@ -90,4 +111,7 @@ export type Actions
   | RemoveBookFailAction
   | LoadAction
   | LoadSuccessAction
-  | LoadFailAction;
+  | LoadFailAction
+  | GetDbData
+  | GetDbDataSuccessAction
+  | GetDbDataFailAction;

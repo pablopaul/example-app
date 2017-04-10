@@ -23,6 +23,7 @@ import { CollectionPageComponent } from './containers/collection-page';
 import { NotFoundPageComponent } from './containers/not-found-page';
 
 import { GoogleBooksService } from './services/google-books';
+import { WindowRef } from './services/WindowRef';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -90,7 +91,8 @@ import { schema } from './db';
   ],
   providers: [
     BookExistsGuard,
-    GoogleBooksService
+    GoogleBooksService,
+    WindowRef
   ],
   bootstrap: [
     AppComponent

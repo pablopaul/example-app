@@ -82,7 +82,6 @@ export function reducer(state: any, action: any) {
   }
 }
 
-
 /**
  * A selector function is a map function factory. We pass it parameters and it
  * returns a function that maps from the larger state tree into a smaller
@@ -139,6 +138,7 @@ export const getSearchResults = createSelector(getBookEntities, getSearchBookIds
 
 export const getCollectionState = (state: State) => state.collection;
 
+export const getCollectionDbData = createSelector(getCollectionState, fromCollection.getDbData);
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
 export const getCollectionBookIds = createSelector(getCollectionState, fromCollection.getIds);
